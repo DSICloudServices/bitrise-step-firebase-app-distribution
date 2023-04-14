@@ -241,6 +241,9 @@ echo
 
 eval "${submit_cmd}"
 
+echo_details "Printing output variables"
+echo_details "$firebase_console_uri"
+
 if [ $? -eq 0 ] ; then
     echo_done "Success"
 else
