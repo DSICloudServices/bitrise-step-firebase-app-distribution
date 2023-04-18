@@ -239,14 +239,11 @@ fi
 echo_details "$submit_cmd"
 echo
 
-eval "${submit_cmd}"
+FIREBASE_COMMAND_OUTPUT=$(eval "${submit_cmd}" | tee /dev/tty)
+FIREBASE_URL=https:$(echo $FIREBASE_COMMAND_OUTPUT | grep 'View this release in the Firebase console:' | cut -d ':' -f 3)
+envman add --key FIREBASE_URL --value "$FIREBASE_URL"
 
-echo_details "Printing output variables"
-echo_details "$firebase_console_uri"
-
-envman add --key FIREBASE_URL --value "$firebase_console_uri"
-
-if [ $? -eq 0 ] ; then
+if [[ "$FIREBASE_URL" == *"firebase"* ]] ; then
     echo_done "Success"
 else
     echo_fail "Fail"
