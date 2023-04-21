@@ -239,7 +239,7 @@ fi
 echo_details "$submit_cmd"
 echo
 
-FIREBASE_COMMAND_OUTPUT=$(eval "${submit_cmd}" | tee /dev/tty)
+FIREBASE_COMMAND_OUTPUT=$(eval "${submit_cmd}" | tee /dev/console)
 FIREBASE_URL=https:$(echo $FIREBASE_COMMAND_OUTPUT | grep 'View this release in the Firebase console:' | cut -d ':' -f 3)
 envman add --key FIREBASE_URL --value "$FIREBASE_URL"
 
